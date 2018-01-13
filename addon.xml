@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.open.jtalk.wrapper"
+       name="Open JTalk Wrapper"
+       version="1.0"
+       provider-name="kodiful">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Open JTalk Wrapper</summary>
+    <summary lang="ja">Open JTalk ラッパー</summary>
+    <description lang="en">Enable Kodi addon to use Japanese TTS by Open JTalk</description>
+    <description lang="ja">KodiアドオンからOpen JTalkによる日本語音声合成を可能にします</description>
+    <website>http://kodiful.com/</website>
+  </extension>
+</addon>

@@ -1,0 +1,14 @@
+<settings>
+  <!--
+      strings 30000 thru 30999 reserved for plugins and plugin settings
+      strings 31000 thru 31999 reserved for skins
+      strings 32000 thru 32999 reserved for scripts
+      strings 33000 thru 33999 reserved for common strings used in add-ons
+  -->
+  <category label="32000">
+    <setting label="32001" id="exe" type="file" default=""/>
+    <setting label="32002" id="dic" type="file" default=""/>
+    <setting label="32003" id="voice" type="file" default=""/>
+    <setting label="32010" type="action" option="close" action="RunPlugin(plugin://$ID/" enable="!eq(-1,)+!eq(-2,)+!eq(-3,)" />
+  </category>
+</settings>
