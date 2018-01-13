@@ -8,6 +8,8 @@
   -->
   <string id="32000">TTS</string>
   <string id="32001">Exec file</string>
-  <string id="32002">Dictionary file</string>
-  <string id="32003">Voice file</string>
+  <string id="32002">Dictionary</string>
+  <string id="32003">Voice</string>
+  <string id="32009">Debug</string>
+  <string id="32010">Test</string>
 </strings>

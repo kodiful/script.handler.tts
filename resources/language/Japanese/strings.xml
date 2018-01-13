@@ -8,6 +8,8 @@
   -->
   <string id="32000">TTS</string>
   <string id="32001">実行ファイル</string>
-  <string id="32002">辞書ファイル</string>
-  <string id="32003">ボイスファイル</string>
-strings>
+  <string id="32002">辞書</string>
+  <string id="32003">ボイス</string>
+  <string id="32009">デバッグ</string>
+  <string id="32010">テスト</string>
+</strings>
