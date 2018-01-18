@@ -3,9 +3,10 @@
 import os, urlparse
 import subprocess
 from datetime import datetime
+from random import random
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-from resources.lib.common import log
+from resources.lib.common import log, notify
 
 # ファイル/ディレクトリパス
 addon = xbmcaddon.Addon()
@@ -33,13 +34,16 @@ def main():
     tts = addon.getSetting('tts')
     dic = addon.getSetting('dic')
     voice = addon.getSetting('voice')
+    # 現在時刻
+    now = datetime.now()
     # 入力ファイル
+    if text is None and txt_file is None:
+        text = ['@time']
     if text:
         text = ' '.join(text)
         # 定型文
         if text == '@time':
-            d = datetime.now()
-            text = '%s月%s日、%s時%s分%s秒' % (d.month, d.day, d.hour, d.minute, d.second)
+            text = '%s月%s日、%s時%s分%s秒' % (now.month, now.day, now.hour, now.minute, now.second)
         log('text: %s' % text)
         # テキストをファイル化
         if txt_file is None:
@@ -60,21 +64,30 @@ def main():
     else:
         speed = speed[0]
     # 音声合成
+    log("\n".join([text,tts,dic,voice,txt_file,wav_file]))
     if text and tts and dic and voice and txt_file and wav_file:
+        # 一時ファイル
+        tmp_file = os.path.join(PROFILE_PATH, '%s.wav' % str(random())[2:])
         # 音声合成コマンド
-        command = '"{tts}" -x "{dic}" -m "{voice}" -r {speed} -ow "{wav_file}" "{txt_file}"'.format(
+        command = '"{tts}" -x "{dic}" -m "{voice}" -r {speed} -ow "{tmp_file}" "{txt_file}"'.format(
             tts = tts,
             dic = dic,
             voice = voice,
             speed = speed,
             txt_file = txt_file,
-            wav_file = wav_file
+            tmp_file = tmp_file
         )
         log(command)
         # 実行
+        if os.path.exists(tmp_file): os.remove(tmp_file)
+        if os.path.exists(wav_file): os.remove(wav_file)
         returncode = subprocess.call(command, shell=True)
-        if returncode == 0 and quiet is None:
-            xbmc.executebuiltin('PlayMedia(%s)' % WAV_FILE)
+        if returncode == 0:
+            os.rename(tmp_file, wav_file)
+            if quiet is None:
+                xbmc.executebuiltin('PlayMedia(%s)' % wav_file)
+                #if os.path.exists(wav_file): os.remove(wav_file)
+        if os.path.exists(tmp_file): os.remove(tmp_file)
     else:
         notify('Invalid arguments', error=True)
 
