@@ -10,6 +10,6 @@
     <setting label="32002" id="dic" type="folder" default=""/>
     <setting label="32003" id="voice" type="file" default=""/>
     <setting label="32009" id="debug" type="bool" default="false"/>
-    <setting label="32010" type="action" option="close" action="RunPlugin(plugin://$ID/?text=@time)" enable="!eq(-1,)+!eq(-2,)+!eq(-3,)" />
+    <setting label="32010" type="action" option="close" action="RunPlugin(plugin://$ID/?text=@time)" enable="!eq(-2,)+!eq(-3,)+!eq(-4,)" />
   </category>
 </settings>
