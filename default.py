@@ -5,10 +5,11 @@ import urlparse
 import subprocess
 from datetime import datetime
 from random import random
+from math import log as ln
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from resources.lib.common import log, notify
-from resources.lib.common import LANG
+from resources.lib.common import LANGUAGE
 
 # ファイル/ディレクトリパス
 addon = xbmcaddon.Addon()
@@ -52,21 +53,23 @@ def main():
         f.close()
     # 言語
     if lang is None:
-        lang = 'Japanese'
+        lang = addon.getSetting('lang') or 'Japanese'
     else:
         lang = lang[0]
     # 音量
     if amp is None:
-        amp = 1.0
+        amp = addon.getSetting('amp') or 1.0
+        amp = float(amp)
     else:
         amp = float(amp[0])
     # 速度
     if speed is None:
-        speed = 1.0
+        speed = addon.getSetting('speed') or 1.0
+        speed = float(speed)
     else:
         speed = float(speed[0])
     # 音声合成コマンド
-    settings = LANG[lang]
+    settings = LANGUAGE[lang]
     if settings['tts'] == 'espeak':
         tts = addon.getSetting('espeak')
         dic = None
@@ -87,7 +90,7 @@ def main():
             tts = tts,
             dic = dic,
             voice = voice,
-            amp0 = 10*math.log(amp)/math.log(10),
+            amp0 = 10*ln(amp)/ln(10),
             speed1 = speed,
             txt = txt_file1,
             wav = wav_file1

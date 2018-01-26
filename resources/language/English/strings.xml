@@ -9,8 +9,10 @@
   <!--一般-->
   <string id="32000">General</string>
   <string id="32001">Language</string>
-  <string id="32002">Debug</string>
-  <string id="32013">Test</string>
+  <string id="32002">Amplitude</string>
+  <string id="32003">Speed</string>
+  <string id="32004">Debug</string>
+  <string id="32005">Test</string>
   <!--eSpeak-->
   <string id="32100">eSpeak</string>
   <string id="32101">Executable</string>
