@@ -14,7 +14,7 @@ from resources.lib.common import LANGUAGE
 # ファイル/ディレクトリパス
 addon = xbmcaddon.Addon()
 PROFILE_PATH = xbmc.translatePath(addon.getAddonInfo('profile'))
-WAV_FILE = os.path.join(PROFILE_PATH, 'open_jtalk.wav')
+WAV_FILE = os.path.join(PROFILE_PATH, 'tts.wav')
 
 #-------------------------------------------------------------------------------
 def main():
@@ -82,10 +82,10 @@ def main():
             txt = txt_file1,
             wav = wav_file1
         )
-    elif settings['tts'] == 'open_jtalk':
-        tts = addon.getSetting('open_jtalk')
-        dic = addon.getSetting('open_jtalk_dic')
-        voice = addon.getSetting('open_jtalk_voice')
+    elif settings['tts'] == 'openjtalk':
+        tts = addon.getSetting('openjtalk')
+        dic = addon.getSetting('openjtalk_dic')
+        voice = addon.getSetting('openjtalk_voice')
         command = '"{tts}" -x "{dic}" -m "{voice}" -g {amp0} -r {speed1} -ow "{wav}" "{txt}"'.format(
             tts = tts,
             dic = dic,

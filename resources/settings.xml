@@ -10,14 +10,14 @@
     <setting label="32002" id="amp" type="labelenum" default="1.0" values="0.2|0.4|0.6|0.8|1.0|1.2|1.4|1.6|1.8|2.0"/>
     <setting label="32003" id="speed" type="labelenum" default="1.0" values="0.6|0.8|1.0|1.2|1.4|1.6|1.8|2.0"/>
     <setting label="32004" id="debug" type="bool" default="false"/>
-    <setting label="32005" type="action" action="RunPlugin(plugin://$ID/)"/>
+    <setting label="32005" type="action" option="close" action="RunPlugin(plugin://$ID/)"/>
   </category>
   <category label="32100">
     <setting label="32101" id="espeak" type="file" default=""/>
   </category>
   <category label="32200">
-    <setting label="32201" id="open_jtalk" type="file" default=""/>
-    <setting label="32202" id="open_jtalk_dic" type="folder" default=""/>
-    <setting label="32203" id="open_jtalk_voice" type="file" default=""/>
+    <setting label="32201" id="openjtalk" type="file" default=""/>
+    <setting label="32202" id="openjtalk_dic" type="folder" default=""/>
+    <setting label="32203" id="openjtalk_voice" type="file" default=""/>
   </category>
 </settings>
