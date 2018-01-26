@@ -6,10 +6,17 @@
       strings 32000 thru 32999 reserved for scripts
       strings 33000 thru 33999 reserved for common strings used in add-ons
   -->
-  <string id="32000">TTS</string>
-  <string id="32001">Exec file</string>
-  <string id="32002">Dictionary</string>
-  <string id="32003">Voice</string>
-  <string id="32009">Debug</string>
-  <string id="32010">Test (Current Time)</string>
+  <!--一般-->
+  <string id="32000">General</string>
+  <string id="32001">Language</string>
+  <string id="32002">Debug</string>
+  <string id="32013">Test</string>
+  <!--eSpeak-->
+  <string id="32100">eSpeak</string>
+  <string id="32101">Executable</string>
+  <!--Open JTalk-->
+  <string id="32200">Open JTalk</string>
+  <string id="32201">Executable</string>
+  <string id="32202">Dictionary</string>
+  <string id="32203">Voice</string>
 </strings>

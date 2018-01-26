@@ -1,52 +1,5 @@
 # -*- coding: utf-8 -*-
 
-'''
-The Japanese TTS System "Open JTalk"
-Version 1.10 (http://open-jtalk.sourceforge.net/)
-Copyright (C) 2008-2016 Nagoya Institute of Technology
-All rights reserved.
-
-The HMM-Based Speech Synthesis Engine "hts_engine API"
-Version 1.10 (http://hts-engine.sourceforge.net/)
-Copyright (C) 2001-2015 Nagoya Institute of Technology
-              2001-2008 Tokyo Institute of Technology
-All rights reserved.
-
-Yet Another Part-of-Speech and Morphological Analyzer "Mecab"
-Version 0.996 (http://mecab.sourceforge.net/)
-Copyright (C) 2001-2008 Taku Kudo
-              2004-2008 Nippon Telegraph and Telephone Corporation
-All rights reserved.
-
-NAIST Japanese Dictionary
-Version 0.6.1-20090630 (http://naist-jdic.sourceforge.jp/)
-Copyright (C) 2009 Nara Institute of Science and Technology
-All rights reserved.
-
-open_jtalk - The Japanese TTS system "Open JTalk"
-
-  usage:
-       open_jtalk [ options ] [ infile ]
-  options:                                                                   [  def][ min-- max]
-    -x  dir        : dictionary directory                                    [  N/A]
-    -m  htsvoice   : HTS voice files                                         [  N/A]
-    -ow s          : filename of output wav audio (generated speech)         [  N/A]
-    -ot s          : filename of output trace information                    [  N/A]
-    -s  i          : sampling frequency                                      [ auto][   1--    ]
-    -p  i          : frame period (point)                                    [ auto][   1--    ]
-    -a  f          : all-pass constant                                       [ auto][ 0.0-- 1.0]
-    -b  f          : postfiltering coefficient                               [  0.0][ 0.0-- 1.0]
-    -r  f          : speech speed rate                                       [  1.0][ 0.0--    ]
-    -fm f          : additional half-tone                                    [  0.0][    --    ]
-    -u  f          : voiced/unvoiced threshold                               [  0.5][ 0.0-- 1.0]
-    -jm f          : weight of GV for spectrum                               [  1.0][ 0.0--    ]
-    -jf f          : weight of GV for log F0                                 [  1.0][ 0.0--    ]
-    -g  f          : volume (dB)                                             [  0.0][    --    ]
-    -z  i          : audio buffer size (if i==0, turn off)                   [    0][   0--    ]
-  infile:
-    text file                                                                [stdin]
-'''
-
 import os, shutil
 import urlparse
 import subprocess
@@ -55,6 +8,7 @@ from random import random
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from resources.lib.common import log, notify
+from resources.lib.common import LANG
 
 # ファイル/ディレクトリパス
 addon = xbmcaddon.Addon()
@@ -65,15 +19,13 @@ WAV_FILE = os.path.join(PROFILE_PATH, 'open_jtalk.wav')
 def main():
     # パラメータ抽出
     args = urlparse.parse_qs(sys.argv[2][1:])
+    lang = args.get('lang', None)
     text = args.get('text', None)
     quiet = args.get('quiet', None)
+    amp = args.get('amp', None)
     speed = args.get('speed', None)
     txt_file = args.get('txt_file', None)
     wav_file = args.get('wav_file', None)
-    # 設定
-    tts = addon.getSetting('tts')
-    dic = addon.getSetting('dic')
-    voice = addon.getSetting('voice')
     # 一時ファイルを初期化
     tmp = str(random())[2:]
     txt_file1 = os.path.join(PROFILE_PATH, '%s.txt' % tmp)
@@ -92,31 +44,54 @@ def main():
     elif text:
         text = ' '.join(text)
     else:
-        text = '@time'
+        text = '1,2,3,4,5,6,7,8,9,10'
     if text:
-        # 定型文
-        if text == '@time':
-            now = datetime.now()
-            text = '%s月%s日、%s時%s分%s秒' % (now.month, now.day, now.hour, now.minute, now.second)
-        log('text: %s' % text)
         # テキストを入力ファイルに書き込む
         f = open(txt_file1, 'w')
         f.write(text)
         f.close()
+    # 言語
+    if lang is None:
+        lang = 'Japanese'
+    else:
+        lang = lang[0]
+    # 音量
+    if amp is None:
+        amp = 1.0
+    else:
+        amp = float(amp[0])
     # 速度
     if speed is None:
         speed = 1.0
     else:
-        speed = speed[0]
+        speed = float(speed[0])
     # 音声合成コマンド
-    command = '"{tts}" -x "{dic}" -m "{voice}" -r {speed} -ow "{wav}" "{txt}"'.format(
-        tts = tts,
-        dic = dic,
-        voice = voice,
-        speed = speed,
-        txt = txt_file1,
-        wav = wav_file1
-    )
+    settings = LANG[lang]
+    if settings['tts'] == 'espeak':
+        tts = addon.getSetting('espeak')
+        dic = None
+        voice = None
+        command = '"{tts}" -a {amp100} -s {speed175} -v {lang} -f "{txt}" -w "{wav}" '.format(
+            tts = tts,
+            amp100 = int(100*amp),
+            speed175 = int(175*speed),
+            lang = settings['lang'],
+            txt = txt_file1,
+            wav = wav_file1
+        )
+    elif settings['tts'] == 'open_jtalk':
+        tts = addon.getSetting('open_jtalk')
+        dic = addon.getSetting('open_jtalk_dic')
+        voice = addon.getSetting('open_jtalk_voice')
+        command = '"{tts}" -x "{dic}" -m "{voice}" -g {amp0} -r {speed1} -ow "{wav}" "{txt}"'.format(
+            tts = tts,
+            dic = dic,
+            voice = voice,
+            amp0 = 10*math.log(amp)/math.log(10),
+            speed1 = speed,
+            txt = txt_file1,
+            wav = wav_file1
+        )
     log('command: %s' % command)
     # 音声合成を実行
     returncode = subprocess.call(command, shell=True)
