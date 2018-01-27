@@ -6,12 +6,13 @@
       strings 33000 thru 33999 reserved for common strings used in add-ons
   -->
   <category label="32000">
-    <setting label="32001" id="lang" type="labelenum" default="Japanese" values="auto|Afrikaans|Catalan|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hungarian|Italian|Japanese|Kannada|Latvian|Polish|Portuguese|Romanian|Slovak|Spanish|Swahihi|Swedish|Tamil|Turkish"/>
+    <setting label="32001" id="lang" type="labelenum" default="auto" values="auto|Afrikaans|Catalan|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hungarian|Italian|Japanese|Kannada|Latvian|Polish|Portuguese|Romanian|Slovak|Spanish|Swahihi|Swedish|Tamil|Turkish"/>
     <setting label="32002" id="amp" type="labelenum" default="1.0" values="0.2|0.4|0.6|0.8|1.0|1.2|1.4|1.6|1.8|2.0"/>
     <setting label="32003" id="speed" type="labelenum" default="1.0" values="0.6|0.8|1.0|1.2|1.4|1.6|1.8|2.0"/>
   </category>
   <category label="32100">
     <setting label="32101" id="espeak" type="file" default=""/>
+    <setting label="32102" id="espeak_voice" type="labelenum" default="auto" values="auto|+m1|+m2|+m3|+m4|+m5|+m6|+m7|+f1|+f2|+f3|+f4"/>
   </category>
   <category label="32200">
     <setting label="32201" id="openjtalk" type="file" default=""/>

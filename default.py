@@ -88,12 +88,14 @@ def main():
     settings = LANGUAGE[lang]
     if settings['tts'] == 'espeak':
         tts = ADDON.getSetting('espeak')
-        if tts is None:
+        voice = ADDON.getSetting('espeak_voice')
+        if tts is None or voice is None:
             command = None
             notify('Invalid eSpeak settings', error=True)
         else:
-            command = '"{tts}" -a {amp} -s {speed} -v {lang} -f "{txt}" -w "{wav}" '.format(
+            command = '"{tts}" -a {amp} -s {speed} -v {lang}{voice} -f "{txt}" -w "{wav}" '.format(
                 tts = tts,
+                voice = (voice=='auto' and ' ' or voice),
                 amp = int(100*amp),
                 speed = int(175*speed),
                 lang = settings['code'],
