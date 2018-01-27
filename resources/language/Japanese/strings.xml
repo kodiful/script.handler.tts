@@ -12,7 +12,8 @@
   <string id="32002">音量</string>
   <string id="32003">速度</string>
   <string id="32004">デバッグ</string>
-  <string id="32005">テスト</string>
+  <string id="32005">テスト文字列</string>
+  <string id="32006">[COLOR green]テスト[/COLOR]</string>
   <!--eSpeak-->
   <string id="32100">eSpeak</string>
   <string id="32101">実行ファイル</string>

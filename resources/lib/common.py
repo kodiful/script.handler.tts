@@ -3,34 +3,6 @@
 import inspect
 import xbmc, xbmcaddon
 
-LANGUAGE = {
-    "Afrikaans":  {"tts":"espeak",    "lang":"af"},
-    "Catalan":    {"tts":"espeak",    "lang":"ca"},
-    "Croatian":   {"tts":"espeak",    "lang":"hr"},
-    "Czech":      {"tts":"espeak",    "lang":"cs"},
-    "Danish":     {"tts":"espeak",    "lang":"da"},
-    "Dutch":      {"tts":"espeak",    "lang":"nl"},
-    "English":    {"tts":"espeak",    "lang":"en"},
-    "Finnish":    {"tts":"espeak",    "lang":"fi"},
-    "French":     {"tts":"espeak",    "lang":"fr"},
-    "German":     {"tts":"espeak",    "lang":"de"},
-    "Greek":      {"tts":"espeak",    "lang":"el"},
-    "Hungarian":  {"tts":"espeak",    "lang":"hu"},
-    "Italian":    {"tts":"espeak",    "lang":"it"},
-    "Japanese":   {"tts":"openjtalk", "lang":"ja"},
-    "Kannada":    {"tts":"espeak",    "lang":"kn"},
-    "Latvian":    {"tts":"espeak",    "lang":"lv"},
-    "Polish":     {"tts":"espeak",    "lang":"pl"},
-    "Portuguese": {"tts":"espeak",    "lang":"pt"},
-    "Romanian":   {"tts":"espeak",    "lang":"ro"},
-    "Slovak":     {"tts":"espeak",    "lang":"sk"},
-    "Spanish":    {"tts":"espeak",    "lang":"es"},
-    "Swahihi":    {"tts":"espeak",    "lang":"sw"},
-    "Swedish":    {"tts":"espeak",    "lang":"sv"},
-    "Tamil":      {"tts":"espeak",    "lang":"ta"},
-    "Turkish":    {"tts":"espeak",    "lang":"tr"}
-}
-
 def notify(message, **options):
     time = options.get('time', 10000)
     image = options.get('image', None)

@@ -12,7 +12,8 @@
   <string id="32002">Amplitude</string>
   <string id="32003">Speed</string>
   <string id="32004">Debug</string>
-  <string id="32005">Test</string>
+  <string id="32005">Test string</string>
+  <string id="32006">[COLOR green]Test[/COLOR]</string>
   <!--eSpeak-->
   <string id="32100">eSpeak</string>
   <string id="32101">Executable</string>
