@@ -11,9 +11,6 @@
   <string id="32001">Language</string>
   <string id="32002">Amplitude</string>
   <string id="32003">Speed</string>
-  <string id="32004">Debug</string>
-  <string id="32005">Test string</string>
-  <string id="32006">[COLOR green]Test[/COLOR]</string>
   <!--eSpeak-->
   <string id="32100">eSpeak</string>
   <string id="32101">Executable</string>
@@ -22,4 +19,9 @@
   <string id="32201">Executable</string>
   <string id="32202">Dictionary</string>
   <string id="32203">Voice</string>
-</strings>
+  <!--その他-->
+  <string id="32900">Others</string>
+  <string id="32901">Debug</string>
+  <string id="32902">Test string</string>
+  <string id="32903">[COLOR green]Test[/COLOR]</string>
+/strings>

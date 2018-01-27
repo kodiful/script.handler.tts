@@ -9,9 +9,6 @@
     <setting label="32001" id="lang" type="labelenum" default="Japanese" values="auto|Afrikaans|Catalan|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hungarian|Italian|Japanese|Kannada|Latvian|Polish|Portuguese|Romanian|Slovak|Spanish|Swahihi|Swedish|Tamil|Turkish"/>
     <setting label="32002" id="amp" type="labelenum" default="1.0" values="0.2|0.4|0.6|0.8|1.0|1.2|1.4|1.6|1.8|2.0"/>
     <setting label="32003" id="speed" type="labelenum" default="1.0" values="0.6|0.8|1.0|1.2|1.4|1.6|1.8|2.0"/>
-    <setting label="32004" id="debug" type="bool" default="false"/>
-    <setting label="32005" id="teststr" type="text" default="1 2 3 4 5 6 7 8 9"/>
-    <setting label="32006" type="action" option="close" action="RunPlugin(plugin://$ID/)"/>
   </category>
   <category label="32100">
     <setting label="32101" id="espeak" type="file" default=""/>
@@ -20,5 +17,10 @@
     <setting label="32201" id="openjtalk" type="file" default=""/>
     <setting label="32202" id="openjtalk_dic" type="folder" default=""/>
     <setting label="32203" id="openjtalk_voice" type="file" default=""/>
+  </category>
+  <category label="32900">
+    <setting label="32901" id="debug" type="bool" default="false"/>
+    <setting label="32902" id="teststr" type="text" default="1 2 3 4 5 6 7 8 9"/>
+    <setting label="32903" type="action" option="close" action="RunPlugin(plugin://$ID/)"/>
   </category>
 </settings>
