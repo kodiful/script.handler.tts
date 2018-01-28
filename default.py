@@ -17,11 +17,14 @@ PROFILE_PATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 WAV_FILE = os.path.join(PROFILE_PATH, 'tts.wav')
 
 # import langdetect
-path = xbmc.translatePath(ADDON.getAddonInfo('path'))
-path = os.path.join(path, 'resources')
-path = os.path.join(path, 'lib')
+addon_path = xbmc.translatePath(ADDON.getAddonInfo('path'))
+resources_path = os.path.join(addon_path, 'resources')
+lib_path = os.path.join(resources_path, 'lib')
+path = os.path.join(lib_path, 'six-1.11.0')
 sys.path.append(path)
-from resources.lib.langdetect import detect
+path = os.path.join(lib_path, 'langdetect-1.0.7')
+sys.path.append(path)
+from langdetect import detect
 
 #-------------------------------------------------------------------------------
 def main():
