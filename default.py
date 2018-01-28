@@ -11,12 +11,17 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from resources.lib.common import log, notify
 from resources.lib.language import LANGUAGE
 
-from resources.lib.langdetect import detect
-
 # ファイル/ディレクトリパス
 ADDON = xbmcaddon.Addon()
 PROFILE_PATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 WAV_FILE = os.path.join(PROFILE_PATH, 'tts.wav')
+
+# import langdetect
+path = xbmc.translatePath(ADDON.getAddonInfo('path'))
+path = os.path.join(path, 'resources')
+path = os.path.join(path, 'lib')
+sys.path.append(path)
+from resources.lib.langdetect import detect
 
 #-------------------------------------------------------------------------------
 def main():
