@@ -185,7 +185,7 @@ def main():
             # 一時ファイルのファイル名を変更
             os.rename(wav_file1, wav_file)
             # 再生
-            if silent is 'true':
+            if silent == 'true':
                 pass
             else:
                 xbmc.executebuiltin('PlayMedia(%s)' % wav_file)
