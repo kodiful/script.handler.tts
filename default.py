@@ -52,11 +52,11 @@ def main():
     # 入力ファイルを準備
     if txt_file:
         shutil.copy2(txt_file, txt_file1)
-    elif text:
-        text = ' '.join(text)
     else:
-        text = ADDON.getSetting('teststr') or '1,2,3,4,5,6,7,8,9,10'
-    if text:
+        if text:
+            text = ' '.join(text)
+        else:
+            text = ADDON.getSetting('teststr') or 'hello'
         # テキストを入力ファイルに書き込む
         f = open(txt_file1, 'w')
         f.write(text)
