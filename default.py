@@ -32,26 +32,83 @@ def main():
     args = urlparse.parse_qs(sys.argv[2][1:])
     lang = args.get('lang', None)
     text = args.get('text', None)
-    quiet = args.get('quiet', None)
+    silent = args.get('silent', None)
     amp = args.get('amp', None)
     speed = args.get('speed', None)
     txt_file = args.get('txt_file', None)
     wav_file = args.get('wav_file', None)
+
+    #
+    # パラメータチェック
+    #
+
+    # 言語
+    if lang is None:
+        lang = ADDON.getSetting('lang') or 'auto'
+    else:
+        lang = lang[0]
+    if lang == 'auto' or LANGUAGE.get(lang, None):
+        pass
+    else:
+        notify('Invalid argument(lang)', error=True)
+        sys.exit()
+
+    # 音量
+    if amp is None:
+        amp = ADDON.getSetting('amp') or 1.0
+        amp = float(amp)
+    else:
+        amp = float(amp[0])
+    if amp < 0.0 or amp > 2.0:
+        notify('Invalid argument(amp)', error=True)
+        sys.exit()
+
+    # 速度
+    if speed is None:
+        speed = ADDON.getSetting('speed') or 1.0
+        speed = float(speed)
+    else:
+        speed = float(speed[0])
+    if speed < 0.0 or speed > 3.0:
+        notify('Invalid argument(speed)', error=True)
+        sys.exit()
+
+    # 再生
+    if silent is None:
+        silent = 'false'
+    else:
+        silent = silent[0]
+        if silent == 'true' or silent == 'false':
+            pass
+        else:
+            notify('Invalid argument(silent)', error=True)
+            sys.exit()
+
+    #
+    # ファイル初期化
+    #
+
     # 一時ファイルを初期化
     tmp = str(random())[2:]
     txt_file1 = os.path.join(PROFILE_PATH, '%s.txt' % tmp)
     if os.path.exists(txt_file1): os.remove(txt_file1)
     wav_file1 = os.path.join(PROFILE_PATH, '%s.wav' % tmp)
     if os.path.exists(wav_file1): os.remove(wav_file1)
+
     # 出力ファイルを初期化
     if wav_file is None:
         wav_file = WAV_FILE
     else:
         wav_file = wav_file[0]
     if os.path.exists(wav_file): os.remove(wav_file)
+
     # 入力ファイルを準備
     if txt_file:
-        shutil.copy2(txt_file, txt_file1)
+        if os.path.exists(txt_file):
+            shutil.copy2(txt_file, txt_file1)
+        else:
+            notify('Invalid txt_file', error=True)
+            sys.exit()
     else:
         if text:
             text = ' '.join(text)
@@ -61,12 +118,11 @@ def main():
         f = open(txt_file1, 'w')
         f.write(text)
         f.close()
-    # 言語
-    if lang is None:
-        lang = ADDON.getSetting('lang') or 'auto'
-    else:
-        lang = lang[0]
+
+    #
     # 言語判定
+    #
+
     if lang == 'auto':
         try:
             code = detect(text.decode('utf-8'))
@@ -80,19 +136,11 @@ def main():
         except:
             lang = 'English'
             log('detected language: %s' % 'error')
-    # 音量
-    if amp is None:
-        amp = ADDON.getSetting('amp') or 1.0
-        amp = float(amp)
-    else:
-        amp = float(amp[0])
-    # 速度
-    if speed is None:
-        speed = ADDON.getSetting('speed') or 1.0
-        speed = float(speed)
-    else:
-        speed = float(speed[0])
+
+    #
     # 音声合成コマンド
+    #
+
     settings = LANGUAGE[lang]
     if settings['tts'] == 'espeak':
         tts = ADDON.getSetting('espeak')
@@ -129,6 +177,7 @@ def main():
                 wav = wav_file1
             )
             log('command: %s' % command)
+
     # 音声合成を実行
     if command:
         returncode = subprocess.call(command, shell=True)
@@ -136,10 +185,13 @@ def main():
             # 一時ファイルのファイル名を変更
             os.rename(wav_file1, wav_file)
             # 再生
-            if quiet is None:
+            if silent is 'true':
+                pass
+            else:
                 xbmc.executebuiltin('PlayMedia(%s)' % wav_file)
         else:
             notify('TTS error', error=True)
+
     # 一時ファイルを削除
     if os.path.exists(txt_file1): os.remove(txt_file1)
     if os.path.exists(wav_file1): os.remove(wav_file1)
