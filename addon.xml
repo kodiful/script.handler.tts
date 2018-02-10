@@ -5,6 +5,7 @@
        provider-name="kodiful">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.six" version="1.11.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>executable</provides>
