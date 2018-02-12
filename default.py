@@ -26,6 +26,12 @@ from langdetect import detect
 
 #-------------------------------------------------------------------------------
 def main():
+
+    # 引数がない場合はアドオン設定を開く
+    if sys.argv[2][1:] == '':
+        ADDON.openSettings()
+        return
+
     # パラメータ抽出
     args = urlparse.parse_qs(sys.argv[2][1:])
     lang = args.get('lang', None)

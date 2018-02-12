@@ -16,6 +16,8 @@
     <summary lang="ja">TTS ラッパー</summary>
     <description lang="en">Wrapper enabling Kodi addon to use TTS by eSpeak/OpenJTalk</description>
     <description lang="ja">KodiアドオンからeSpeakやOpenJTalkによる音声合成を利用するためのラッパーです</description>
+    <disclaimer lang="en">Tested on macOS</disclaimer>
+    <disclaimer lang="ja">macOSでの動作を確認</disclaimer>
     <website>http://kodiful.com/</website>
   </extension>
 </addon>

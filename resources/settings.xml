@@ -21,7 +21,7 @@
   </category>
   <category label="32900">
     <setting label="32902" id="teststr" type="text" default="hello"/>
-    <setting label="32903" type="action" option="close" action="RunPlugin(plugin://$ID/)"/>
+    <setting label="32903" type="action" option="close" action="RunPlugin(plugin://$ID/?test)"/>
     <setting label="32901" id="debug" type="bool" default="false"/>
   </category>
 </settings>
