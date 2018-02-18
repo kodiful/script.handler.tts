@@ -39,8 +39,8 @@ def main():
     silent = args.get('silent', None)
     amp = args.get('amp', None)
     speed = args.get('speed', None)
-    txt_file = args.get('txt_file', None)
-    wav_file = args.get('wav_file', None)
+    txtfile = args.get('txtfile', None)
+    wavfile = args.get('wavfile', None)
 
     #
     # パラメータチェック
@@ -94,24 +94,24 @@ def main():
 
     # 一時ファイルを初期化
     tmp = str(random())[2:]
-    txt_file1 = os.path.join(PROFILE_PATH, '%s.txt' % tmp)
-    if os.path.exists(txt_file1): os.remove(txt_file1)
-    wav_file1 = os.path.join(PROFILE_PATH, '%s.wav' % tmp)
-    if os.path.exists(wav_file1): os.remove(wav_file1)
+    txtfile1 = os.path.join(PROFILE_PATH, '%s.txt' % tmp)
+    if os.path.exists(txtfile1): os.remove(txtfile1)
+    wavfile1 = os.path.join(PROFILE_PATH, '%s.wav' % tmp)
+    if os.path.exists(wavfile1): os.remove(wavfile1)
 
     # 出力ファイルを初期化
-    if wav_file is None:
-        wav_file = WAV_FILE
+    if wavfile is None:
+        wavfile = WAV_FILE
     else:
-        wav_file = wav_file[0]
-    if os.path.exists(wav_file): os.remove(wav_file)
+        wavfile = wavfile[0]
+    if os.path.exists(wavfile): os.remove(wavfile)
 
     # 入力ファイルを準備
-    if txt_file:
-        if os.path.exists(txt_file):
-            shutil.copy2(txt_file, txt_file1)
+    if txtfile:
+        if os.path.exists(txtfile):
+            shutil.copy2(txtfile, txtfile1)
         else:
-            notify('Invalid txt_file', error=True)
+            notify('Invalid txtfile', error=True)
             sys.exit()
     else:
         if text:
@@ -119,7 +119,7 @@ def main():
         else:
             text = ADDON.getSetting('teststr') or 'hello'
         # テキストを入力ファイルに書き込む
-        f = open(txt_file1, 'w')
+        f = open(txtfile1, 'w')
         f.write(text)
         f.close()
 
@@ -159,8 +159,8 @@ def main():
                 amp = int(100*amp),
                 speed = int(175*speed),
                 lang = settings['code'],
-                txt = txt_file1,
-                wav = wav_file1
+                txt = txtfile1,
+                wav = wavfile1
             )
             log('command: %s' % command)
     elif settings['tts'] == 'openjtalk':
@@ -177,8 +177,8 @@ def main():
                 voice = voice,
                 amp = 10*ln(amp)/ln(10),
                 speed = speed,
-                txt = txt_file1,
-                wav = wav_file1
+                txt = txtfile1,
+                wav = wavfile1
             )
             log('command: %s' % command)
 
@@ -187,18 +187,18 @@ def main():
         returncode = subprocess.call(command, shell=True)
         if returncode == 0:
             # 一時ファイルのファイル名を変更
-            os.rename(wav_file1, wav_file)
+            os.rename(wavfile1, wavfile)
             # 再生
             if silent == 'true':
                 pass
             else:
-                xbmc.executebuiltin('PlayMedia(%s)' % wav_file)
+                xbmc.executebuiltin('PlayMedia(%s)' % wavfile)
         else:
             notify('TTS error', error=True)
 
     # 一時ファイルを削除
-    if os.path.exists(txt_file1): os.remove(txt_file1)
-    if os.path.exists(wav_file1): os.remove(wav_file1)
+    if os.path.exists(txtfile1): os.remove(txtfile1)
+    if os.path.exists(wavfile1): os.remove(wavfile1)
 
 #-------------------------------------------------------------------------------
 if __name__  == '__main__': main()
