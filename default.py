@@ -18,10 +18,7 @@ WAV_FILE = os.path.join(PROFILE_PATH, 'tts.wav')
 
 # import langdetect
 addon_path = xbmc.translatePath(ADDON.getAddonInfo('path'))
-resources_path = os.path.join(addon_path, 'resources')
-lib_path = os.path.join(resources_path, 'lib')
-path = os.path.join(lib_path, 'langdetect-1.0.7')
-sys.path.append(path)
+sys.path.append(os.path.join(addon_path, 'resources', 'lib', 'langdetect-1.0.7'))
 from langdetect import detect
 
 #-------------------------------------------------------------------------------
